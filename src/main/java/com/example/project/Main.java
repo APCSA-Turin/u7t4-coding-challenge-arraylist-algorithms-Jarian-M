@@ -242,7 +242,14 @@ public class Main{
         }
         for(int i = 1; i < len - 1; i++) {
             if(list.get(i) == val) {
-                if(list.get(i - 1) != val && list.get(i + 1) != val) {
+                int left = list.get(i - 1);
+                int right = list.get(i + 1);
+                if(left != val && right != val) {
+                    if(left > right) {
+                        list.set(i, left);
+                    } else {
+                        list.set(i, right);
+                    }
                 }
             }
         }
@@ -258,6 +265,11 @@ public class Main{
     // shiftLeft([1]) → [1]
 
     public static ArrayList<Integer> shiftLeft(ArrayList<Integer> list){
+        int temp1 = list.get(0);
+        for(int i = 0; i < list.size() - 1; i++) {
+            list.set(i, list.get(i + 1));
+        }
+        list.set(list.size() - 1, temp1);
         return list;
     }
     
@@ -272,6 +284,18 @@ public class Main{
     // fix34([3, 2, 2, 4]) → [3, 4, 2, 2]
 
     public static ArrayList<Integer> fix34(ArrayList<Integer> list){
+        ArrayList<Integer> four = new ArrayList<>();
+        for(int i = 0; i < list.size(); i++) {
+            if(list.get(i) == 4) {
+                four.add(list.remove(i));
+                i--;
+            }
+        }
+        for(int j = 0; j < list.size(); j++) {
+            if(list.get(j) == 3) {
+                list.add(j + 1, four.remove(0));
+            }
+        }
         return list;
     }
 
@@ -302,6 +326,45 @@ public class Main{
    *  @param numList  numList of ints
    */
     public static ArrayList<Integer> modes(int[] numList){
-        return new ArrayList<Integer>();
+        int count = 0;
+        int high = 0;
+        int temp = 0;
+        ArrayList<Integer> modes = new ArrayList<>();
+        for(int i = 0; i < numList.length; i++) {
+            for(int j = 0; j < numList.length; j++) {
+                if(i == j) {
+                    count++;
+                }
+            }
+            if(count > 1) {
+                if(count > high) {
+                    high = count;
+                    temp = numList[i];
+                }
+            }
+            count = 0;
+        }
+        modes.add(temp);
+        for(int k = 0; k < numList.length; k++) {
+            for(int l = 0; l < numList.length; l++) {
+                if(k == l) {
+                    count++;
+                }
+            }
+            if(count == high) {
+                modes.add(numList[k]);
+            }
+            count = 0;
+        }
+        if(modes.size() == numList.length) {
+            ArrayList<Integer> empty = new ArrayList<Integer>(null);
+            return empty;
+        }
+        for(int f = 0; f < modes.size() - 1; f++) {
+            if(modes.get(f) == modes.get(f + 1)) {
+                modes.remove(f);
+            }
+        }
+        return new ArrayList<Integer>(modes);
     }
 }
