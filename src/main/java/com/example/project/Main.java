@@ -36,6 +36,7 @@ public class Main{
         for(int i = 0; i < stringList.size(); i++) {
             if(stringList.get(i).length() == 3) {
                 stringList.remove(i);
+                i--;
             }
         }
         return stringList;
@@ -185,11 +186,17 @@ public class Main{
     // swapEnds([1, 2, 3]) → [3, 2, 1]
     // swapEnds([8, 6, 7, 9, 5]) → [5, 6, 7, 9, 8]
     // swapEnds([]->[])
-    public static ArrayList<Integer> swapEnds(ArrayList<Integer> list){    
-        int temp = list.remove(list.size() - 1);
-        list.add(list.get(0));
-        list.set(0, temp);    
-        return list;
+    public static ArrayList<Integer> swapEnds(ArrayList<Integer> list){ 
+        if(list.size() == 0) {
+            return list;
+        } else if(list.size() == 1) {
+            return list;
+        } else {
+            int temp = list.remove(list.size() - 1);
+            list.add(list.get(0));
+            list.set(0, temp);    
+            return list;
+        }   
     }
 
 
@@ -293,9 +300,15 @@ public class Main{
         }
         for(int j = 0; j < list.size(); j++) {
             if(list.get(j) == 3) {
-                list.add(j + 1, four.remove(0));
+                if(j > list.indexOf(3)) {
+                    list.add(list.remove(j));
+                } else {
+                    list.add(j + 1, four.remove(0));
+                }
             }
+            
         }
+        list.add(4);
         return list;
     }
 
@@ -328,42 +341,42 @@ public class Main{
     public static ArrayList<Integer> modes(int[] numList){
         int count = 0;
         int high = 0;
-        int temp = 0;
+        boolean noMode = true;
         ArrayList<Integer> modes = new ArrayList<>();
         for(int i = 0; i < numList.length; i++) {
             for(int j = 0; j < numList.length; j++) {
-                if(i == j) {
+                if(numList[i] == numList[j]) {
                     count++;
                 }
             }
             if(count > 1) {
                 if(count > high) {
                     high = count;
-                    temp = numList[i];
                 }
             }
             count = 0;
         }
-        modes.add(temp);
+        
         for(int k = 0; k < numList.length; k++) {
             for(int l = 0; l < numList.length; l++) {
-                if(k == l) {
+                if(numList[k] == numList[l]) {
                     count++;
                 }
             }
             if(count == high) {
-                modes.add(numList[k]);
+                if(!modes.contains(numList[k])) {
+                    modes.add(numList[k]);
+                }
             }
             count = 0;
         }
-        if(modes.size() == numList.length) {
-            ArrayList<Integer> empty = new ArrayList<Integer>(null);
-            return empty;
-        }
-        for(int f = 0; f < modes.size() - 1; f++) {
-            if(modes.get(f) == modes.get(f + 1)) {
-                modes.remove(f);
+        for(int h = 0; h < numList.length; h++) {
+            if(!modes.contains(numList[h])) {
+                noMode = false;
             }
+        }
+        if(noMode) {
+            return new ArrayList<>();
         }
         return new ArrayList<Integer>(modes);
     }

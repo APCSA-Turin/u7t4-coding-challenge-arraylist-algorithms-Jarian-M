@@ -21,7 +21,7 @@ public class Runner {
         System.out.println(Main.removeDuplicates(dupes));
         ArrayList<Integer> same = new ArrayList<>(Arrays.asList(1));
         System.out.println(Main.sameFirstLast(same));
-        ArrayList<Integer> swap = new ArrayList<>(Arrays.asList(8, 6, 7, 9, 5));
+        ArrayList<Integer> swap = new ArrayList<>(Arrays.asList());
         System.out.println(Main.swapEnds(swap));
         ArrayList<Integer> zeros = new ArrayList<>(Arrays.asList(1, 0, 0, 2, 3, 0, 5, 0, 1, 1, 0));
         System.out.println(Main.zeroFront(zeros));
@@ -31,7 +31,7 @@ public class Runner {
         System.out.println(Main.shiftLeft(left));
         ArrayList<Integer> fix = new ArrayList<>(Arrays.asList(1, 3, 1, 4, 4, 3, 1));
         System.out.println(Main.fix34(fix));
-        int[] nums = {1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6};
+        int[] nums = {1, 2, 3, 2, 4, 5, 5, 6};
         System.out.println(Main.modes(nums));
     }
 }
