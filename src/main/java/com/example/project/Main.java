@@ -302,13 +302,16 @@ public class Main{
             if(list.get(j) == 3) {
                 if(j > list.indexOf(3)) {
                     list.add(list.remove(j));
+                    list.add(4);
+                    j++;
                 } else {
                     list.add(j + 1, four.remove(0));
+                    j++;
                 }
             }
             
         }
-        list.add(4);
+        
         return list;
     }
 
